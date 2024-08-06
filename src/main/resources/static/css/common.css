@@ -1,0 +1,53 @@
+/* [do] 공통 */
+
+body {
+	margin: 0;
+}
+
+
+
+
+
+.greater-than {
+  color: rgba(122, 112, 186, 0.7);
+  font-size: 20px;
+}
+
+.do-p-darkgray {
+	color: #5b5b5b;
+	margin: 0;
+}
+.do-bold {
+	font-weight: bold;
+}
+.do-p-white {
+	color: white;
+}
+.do-eclipse {
+	white-space: nowrap; /* 텍스트가 한 줄로 유지되도록 설정 */
+    overflow: hidden; /* 넘친 내용을 숨기도록 설정 */
+    text-overflow: ellipsis; /* 넘친 부분을 ...으로 표시 */
+}
+
+
+
+
+
+
+.do-overflow {
+	max-height: 450px;
+	overflow-y: auto;
+}
+
+
+
+
+
+
+
+
+/* 테이블 */
+.do-table {
+	text-align: center; 
+    vertical-align: middle; 
+}
