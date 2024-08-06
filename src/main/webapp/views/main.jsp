@@ -23,4 +23,18 @@
 	</div>
 </body>
 
+<script>
+	fetch('/getApiData.ajax', {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json'
+		}
+	})
+	.then(response => response.json())
+	.then(data => {
+		console.log(data);
+	})
+	.catch(error => {console.log('Error: ', error);});
+</script>
+
 </html>

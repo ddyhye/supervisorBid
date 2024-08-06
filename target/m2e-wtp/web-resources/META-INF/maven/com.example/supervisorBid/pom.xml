@@ -67,6 +67,13 @@
 		    <artifactId>jackson-databind</artifactId>
 		</dependency>
 		
+		<!-- XML 파싱 -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+		
+		
 		<!-- log4jdbc -->
 		<!-- https://mvnrepository.com/artifact/org.bgee.log4jdbc-log4j2/log4jdbc-log4j2-jdbc4.1 -->
 		<dependency>
