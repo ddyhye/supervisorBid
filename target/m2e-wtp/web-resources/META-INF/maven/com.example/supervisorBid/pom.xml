@@ -82,6 +82,14 @@
 		    <version>1.16</version>
 		</dependency>
 		
+		<!-- Apache Http Client (HTTP 클라이언트를 직접 사용하여 요청을 보내는, 인코딩 해결을 위해 -->
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpclient</artifactId>
+		    <version>4.5.13</version>
+		</dependency>
+		
+		
 		
 		
 		
