@@ -13,21 +13,21 @@
 
 <body>
 	<div class="container">
-	    <div class="top-div">
-			<div class="top-left-div">
+	    <div class="top">
+			<div class="top-left">
 				<span>${loginId}</span>
 			</div>
-			<div class="top-right-div">
+			<div class="top-right">
 				<button style="margin: 5px" onclick="location.href='logout'">로그아웃</button>
 			</div>
 		</div>
 		
-		<div class="subject-div">
-			<h3>나라장터 입찰 공고 리스트</h3>
+		<div class="subject">
+			<h3>나라장터 입찰공고 리스트</h3>
 		</div>
 	
-		<div class="button-div">
-			<div class="button-left-div">
+		<div class="button">
+			<div class="button-left">
 				<!-- <select name="pagePerNum" style="height:30px">
 					<option val="5">5</option>
 					<option val="10">10</option>
@@ -35,25 +35,69 @@
 					<option val="20">20</option>
 				</select> -->
 			</div>
-			<div class="button-right-div">
+			<div class="button-right">
 				<button style="margin: 5px" onclick="location.href='write.go'">필터링</button>
 				<button onclick="delBbs()" style="margin: 5px">삭제</button>
 			</div>
 		</div>
 	
-		<div class="table-div">
+	
+		<h3>입찰공고 검색 결과 (n건)</h3>
+		
+		<hr/>
+		<div id="container">
+			<div class="list">
+				<div class="list-left">
+					<div class="list-left-1">용역</div>
+					<div class="list-left-2">일반</div>
+				</div>
+				<div class="list-right">
+					<div class="list-right-1">
+						<p>[20240806728-00]</p>
+						<p class="p-bold">주택건설공사 감리자(소방) 모집공고[군포대야미 B3블럭]</p>
+					</div>
+					<div class="list-right-2">
+						<div class="list-right-2-1">
+							<p class="p-bold">공고일시</p>
+							<p>2024/08/07 14:58</p>
+						</div>
+						<div class="list-right-2-2">
+							<p class="p-bold">마감일시</p>
+							<p>2024/08/19 14:00</p>
+						</div>
+						<div class="list-right-2-3">
+							<p class="p-bold">개찰일시</p>
+							<p>2024/08/19 16:00</p>
+						</div>
+					</div>
+					<div class="list-right-3">
+						<div class="list-right-3-1">
+							<p class="p-bold">공고기관</p>
+							<p>경기도 군포시</p>
+						</div>
+						<div class="list-right-3-2">
+							<p class="p-bold">수요기관</p>
+							<p>경기도 군포시</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr/>
+		</div>
+		
+		<div class="table">
 			<table>
 				<thead>
-					<tr>
+					<!-- <tr>
 						<th>No</th>
-						<th>제목</th>
+						<th>공고명</th>
 						<th>작성자</th>
 						<th>조회수</th>
 						<th>등록일</th>
 						<th><input type="checkbox" name="all" /></th>
-					</tr>
+					</tr> -->
 				</thead>
-				<tbody id="bbsList">
+				<tbody id="bidList">
 					<c:if test="${list.size() < 1}">
 						<tr>
 							<td colspan="7">작성된 게시글이 없습니다.</td>
@@ -70,14 +114,14 @@
 						</tr>
 					</c:forEach>
 				</tbody>
-				<tbody id="page">				
-				</tbody>
 			</table>
 		</div>
 	</div>
 </body>
 
 <script>
+
+	// 리스트 불러오기
     fetch('/getApiData.ajax', {
         method: 'GET',
         headers: {
@@ -87,8 +131,54 @@
     .then(response => response.json())
     .then(data => {
         console.log(data);
+        drawBidList(data);
     })
     .catch(error => {console.log('Error: ', error);});
+	
+	// 리스트 그리기
+	function drawBidList(data) {
+		// 요소 비우기
+		var container = document.getElementById('container');
+		while (container.firstChild) {
+			container.removeChild(container.firstChild);
+		}
+		
+		var content = '';
+		
+		if (!data.bidList || data.bidList.length == 0) {
+			content += '<p>입찰공고 검색 결과가 없습니다...</p>';
+		}
+		for (item of data.bidList) {
+			content += '<div class="list"><div class="list-left">';
+			content += '<div class="list-left-1">'+item.bsnsDivNm+'</div>';
+			content += '<div class="list-left-2">'+item.bidNtceSttusNm+'</div></div>';
+			content += '<div class="list-right">';
+			content += '<div class="list-right-1">';
+			content += '<p>'+item.bidNtceNo+'</p>';
+			content += '<p class="p-bold">'+item.bidNtceNm+'</p></div>';
+			content += '<div class="list-right-2">';
+			content += '<div class="list-right-2-1">';
+			content += '<p class="p-bold">공고일시</p>';
+			content += '<p>'+item.bidNtceDate+' '+item.bidNtceBgn+'</p></div>';
+			content += '<div class="list-right-2-2">';
+			content += '<p class="p-bold">마감일시</p>';
+			content += '<p>'+item.bidClseDate+' '+item.bidClseTm+'</p></div>';
+			content += '<div class="list-right-2-3">';
+			content += '<p class="p-bold">개찰일시</p>';
+			content += '<p>'+item.bidBeginDate+' '+item.bidBeginTm+'</p></div></div>';
+			content += '<div class="list-right-3">';
+			content += '<div class="list-right-3-1">';
+			content += '<p class="p-bold">공고기관</p>';
+			content += '<p>'+item.ntceInsttNm+'</p></div>';
+			content += '<div class="list-right-3-2">';
+			content += '<p class="p-bold">수요기관</p>';
+			content += '<p>'+item.dmndInsttNm+'</p></div>';
+			content += '</div>';
+			content += '</div></div><hr/>';
+		}
+		
+		container.innerHTML = content;
+	}
 </script>
 
 </html>

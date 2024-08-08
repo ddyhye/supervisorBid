@@ -4,7 +4,7 @@ import org.apache.ibatis.type.Alias;
 
 @Alias(value="bidInfo")
 public class BidInfoDTO {
-	
+	//bidNtceSttusNm bsnsDivNm
 	private double asignBdgtAmt; // 예산 금액
     private String bidBeginDate; // 입찰 시작 날짜
     private String bidBeginTm; // 입찰 시작 시간
@@ -91,7 +91,8 @@ public class BidInfoDTO {
 		return bidNtceOrd;
 	}
 	public String getBidNtceSttusNm() {
-		return bidNtceSttusNm;
+		String bidNtceSttusNmCut = bidNtceSttusNm.split("공고")[0];
+		return bidNtceSttusNmCut;
 	}
 	public String getBidNtceUrl() {
 		return bidNtceUrl;

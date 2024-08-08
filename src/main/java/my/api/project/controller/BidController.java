@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -53,15 +56,31 @@ public class BidController {
     public Map<String, Object> getApiData() {
         Map<String, Object> map = new HashMap<String, Object>();
 
+        // 요청 endpoint
         String url = "http://apis.data.go.kr/1230000/PubDataOpnStdService/getDataSetOpnStdBidPblancInfo";
 
+        // 오늘 날짜 (End)
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMddHHmm");
+        String formattedNow = now.format(dateTimeFormatter);
+        
+        // 1달 이전 날짜 (Start)
+        LocalDateTime monthAgo = LocalDateTime.now().minus(30, ChronoUnit.DAYS);
+        DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyyMMdd'0000'");
+        String formattedMonthAgo = monthAgo.format(dateTimeFormatter2);
+        
+        logger.info("시작 날짜 >> "+formattedMonthAgo);
+        logger.info("오늘 날짜 >> "+formattedNow);
+        
         // 쿼리 파라미터를 수동으로 구성
-        String queryString = "?serviceKey=" + serviceKey +
-                             "&pageNo=1" +
-                             "&numOfRows=10" +
-                             "&type=json" +
-                             "&bidNtceBgnDt=202407010000" +
-                             "&bidNtceEndDt=202407312359";
+        String queryString = "?serviceKey="+serviceKey
+                             +"&pageNo=1"
+                             +"&numOfRows=10"
+                             +"&type=json"
+                             +"&bidNtceBgnDt="+formattedMonthAgo
+                             +"&bidNtceEndDt="+formattedNow;
+        
+        
 
         String fullUrl = url + queryString;
         
