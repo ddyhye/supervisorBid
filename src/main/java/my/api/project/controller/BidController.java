@@ -69,58 +69,82 @@ public class BidController {
         DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyyMMdd'0000'");
         String formattedMonthAgo = monthAgo.format(dateTimeFormatter2);
         
-        logger.info("시작 날짜 >> "+formattedMonthAgo);
-        logger.info("오늘 날짜 >> "+formattedNow);
         
-        // 쿼리 파라미터를 수동으로 구성
-        String queryString = "?serviceKey="+serviceKey
-                             +"&pageNo=1"
-                             +"&numOfRows=10"
-                             +"&type=json"
-                             +"&bidNtceBgnDt="+formattedMonthAgo
-                             +"&bidNtceEndDt="+formattedNow;
+        // 공고 수
+        int cnt = 0;
+        // 요청 페이지
+        int pageNo = 1;
+        int numOfRows = 100;
+        // 다음 페이지가 있는지?
+        boolean hasNextPage = true;
         
-        
-
-        String fullUrl = url + queryString;
         
         // 입찰 정보를 담을 DTO
         List<BidInfoDTO> bidList = new ArrayList<BidInfoDTO>();
-
-        // CloseableHttpClient 를 생성(객체)하여 HTTP 요청 보낼 준비 
-        try(CloseableHttpClient httpClient = HttpClients.createDefault()) {
-        	//HTTP GET 요청 생성)
-        	HttpGet request = new HttpGet(fullUrl);
+        
+        while(hasNextPage) {
+        	// 쿼리 파라미터를 수동으로 구성
+        	String queryString = "?serviceKey="+serviceKey
+        			+"&pageNo="+pageNo
+        			+"&numOfRows="+numOfRows
+        			+"&type=json"
+        			+"&bidNtceBgnDt=202408081400"
+        			+"&bidNtceEndDt=202408082359";
         	
-        	// 생성된 HttpGet 요청을 httpClient 객체를 사용하여 실행 --> CloseableHttpResponse 객체로 받기
-        	try(CloseableHttpResponse response = httpClient.execute(request)) {
-        		// 응답 http 상태 코드, 200(==OK)
-        		if (response.getStatusLine().getStatusCode() == 200) {
-        			// 응답을 문자열로 변환하여 저장
-					String responseBody = EntityUtils.toString(response.getEntity());
-					// JSON 파싱을 위한 ObjectMapper
-					ObjectMapper objectMapper = new ObjectMapper();
-					
-					// JSON 문자열을 파싱하여 JSON 트리 구조의 최상위 루트를 나타내는 JsonNode 객체를 반환
-					JsonNode rootNode = objectMapper.readTree(responseBody);
-					// rootNode에서 하위 노드를 찾음.
-	                JsonNode itemsNode = rootNode.path("response").path("body").path("items");
-	                // 하위 노드가 배열인지 확인
-	                if (itemsNode.isArray()) {
-	                    // 각 요소를 순회
-	                	for (JsonNode itemNode : itemsNode) {
-	                		BidInfoDTO bidInfo = objectMapper.treeToValue(itemNode, BidInfoDTO.class);
-	                        bidList.add(bidInfo);
-	                    }
-	                }
-	                map.put("bidList", bidList);
-				} else {
-					map.put("error", null);
-				}
+        	
+        	String fullUrl = url + queryString;
+        	
+        	// CloseableHttpClient 를 생성(객체)하여 HTTP 요청 보낼 준비 
+        	try(CloseableHttpClient httpClient = HttpClients.createDefault()) {
+        		//HTTP GET 요청 생성)
+        		HttpGet request = new HttpGet(fullUrl);
+        		
+        		// 생성된 HttpGet 요청을 httpClient 객체를 사용하여 실행 --> CloseableHttpResponse 객체로 받기
+        		try(CloseableHttpResponse response = httpClient.execute(request)) {
+        			// 응답 http 상태 코드, 200(==OK)
+        			if (response.getStatusLine().getStatusCode() == 200) {
+        				// 응답을 문자열로 변환하여 저장
+        				String responseBody = EntityUtils.toString(response.getEntity());
+        				// JSON 파싱을 위한 ObjectMapper
+        				ObjectMapper objectMapper = new ObjectMapper();
+        				
+        				// JSON 문자열을 파싱하여 JSON 트리 구조의 최상위 루트를 나타내는 JsonNode 객체를 반환
+        				JsonNode rootNode = objectMapper.readTree(responseBody);
+        				// rootNode에서 하위 노드를 찾음.
+        				JsonNode itemsNode = rootNode.path("response").path("body").path("items");
+        				// 하위 노드가 배열인지 확인
+        				if (itemsNode.isArray()) {
+        					// 각 요소를 순회
+        					for (JsonNode itemNode : itemsNode) {
+        						BidInfoDTO bidInfo = objectMapper.treeToValue(itemNode, BidInfoDTO.class);
+        						
+        						if (bidInfo.getBidNtceNm().contains("양덕여자중학교")) {
+        							cnt++;
+        							bidList.add(bidInfo);
+								}
+        					}
+        				}
+        				
+        				if (pageNo == 14) {
+        					hasNextPage = false;
+        				} else if (itemsNode.size() == numOfRows) {
+        					//logger.info("페이지 번호 >> "+pageNo+"  행의 수 >> "+itemsNode.size());
+        					pageNo++;
+        				} else {
+        					hasNextPage = false;
+        				}
+					} else {
+						hasNextPage = false;
+					}
+        		}
+        	} catch (IOException e) {
+        		e.printStackTrace();
+        		hasNextPage = false;
         	}
-        } catch (IOException e) {
-        	e.printStackTrace();
         }
+        
+        map.put("cnt", cnt);
+        map.put("bidList", bidList);
 
         return map;
     }

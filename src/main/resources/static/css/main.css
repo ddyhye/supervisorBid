@@ -95,6 +95,15 @@ p {
 
 
 
+.row-div {
+	display: flex;
+	flex-direction: row;
+	
+	position: relative;
+	
+	gap: 10px;
+}
+
 /* ¸®½ºÆ® */
 .list {
 	display: flex;
@@ -137,6 +146,8 @@ p {
 	
 	position: relative;
 	padding-bottom: 10px;
+	
+	gap: 10px;
 }
 .p-bold {
 	font-weight: bold;

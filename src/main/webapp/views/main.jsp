@@ -42,9 +42,9 @@
 		</div>
 	
 	
-		<h3>입찰공고 검색 결과 (n건)</h3>
+		<!-- <h3>입찰공고 검색 결과 <p id="listCnt"></p>건</h3>
 		
-		<hr/>
+		<hr/> -->
 		<div id="container">
 			<div class="list">
 				<div class="list-left">
@@ -130,7 +130,12 @@
     })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
+		/* var listCnt = document.getElementById('listCnt');
+		while (listCnt.firstChild) {
+	        listCnt.removeChild(listCnt.firstChild);
+	    }
+		listCnt.innerHTML = data.cnt; */
+		
         drawBidList(data);
     })
     .catch(error => {console.log('Error: ', error);});
@@ -145,6 +150,9 @@
 		
 		var content = '';
 		
+		content += '<h3 class="row-div">입찰공고 검색 결과 <p id="listCnt">'+data.cnt+'</p>건</h3>';
+		content += '<hr/>';
+		
 		if (!data.bidList || data.bidList.length == 0) {
 			content += '<p>입찰공고 검색 결과가 없습니다...</p>';
 		}
@@ -154,7 +162,7 @@
 			content += '<div class="list-left-2">'+item.bidNtceSttusNm+'</div></div>';
 			content += '<div class="list-right">';
 			content += '<div class="list-right-1">';
-			content += '<p>'+item.bidNtceNo+'</p>';
+			content += '<p>['+item.bidNtceNo+']</p>';
 			content += '<p class="p-bold">'+item.bidNtceNm+'</p></div>';
 			content += '<div class="list-right-2">';
 			content += '<div class="list-right-2-1">';

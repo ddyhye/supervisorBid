@@ -13,7 +13,7 @@ public class MainController {
 	
 	@GetMapping(value="/")
 	public String main() {
-		logger.info("로그인 페이지...");
+		logger.info("입찰공고 리스트 페이지...");
 		
 		return "main";
 	}
