@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC   "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="my.api.project.dao.BidDAO">
+
+	
+	<!-- 소방, 전기, 통신 감리 입찰공고 저장 -->
+	<insert id="insertBid" parameterType="bidInfo">
+	    INSERT INTO bid (
+	        asignBdgtAmt, bidBeginDate, bidBeginTm, bidClseDate, 
+	        bidClseTm, bidNtceBgn, bidNtceDate, bidNtceNm, 
+	        bidNtceNo, bidNtceOrd, bidNtceSttusNm, bidNtceUrl, 
+	        bidPrtcptQlfctRgstClseDate, bidPrtcptQlfctRgstClseTm, 
+	        bidprcPsblIndstrytyNm, bidwinrDcsnMthdNm, bsnsDivNm, 
+	        cmmnCntrctYn, cmmnReciptAgrmntClseDate, cmmnReciptAgrmntClseTm, 
+	        cmmnReciptMethdNm, cntrctCnclsMthdNm, cntrctCnclsSttusNm, 
+	        dataBssDate, dmndInsttCd, dmndInsttNm, dmndInsttOfclDeptNm, 
+	        dmndInsttOfclEmailAdrs, dmndInsttOfclNm, dmndInsttOfclTel, 
+	        elctrnBidYn, indstrytyLmtYn, intrntnlBidYn, ntceInsttCd, 
+	        ntceInsttNm, ntceInsttOfclDeptNm, ntceInsttOfclEmailAdrs, 
+	        ntceInsttOfclNm, ntceInsttOfclTel, opengDate, opengPlce, 
+	        opengTm, ppsNtceYn, presmptPrce, presnatnOprtnDate, 
+	        presnatnOprtnPlce, presnatnOprtnTm, presnatnOprtnYn, prtcptPsblRgnNm, 
+	        refNtceNo, refNtceOrd, rgnLmtYn, rsrvtnPrceDcsnMthdNm) 
+	    VALUES (
+	        #{asignBdgtAmt}, #{bidBeginDate}, #{bidBeginTm}, #{bidClseDate}, 
+	        #{bidClseTm}, #{bidNtceBgn}, #{bidNtceDate}, #{bidNtceNm}, 
+	        #{bidNtceNo}, #{bidNtceOrd}, #{bidNtceSttusNm}, #{bidNtceUrl}, 
+	        #{bidPrtcptQlfctRgstClseDate}, #{bidPrtcptQlfctRgstClseTm}, 
+	        #{bidprcPsblIndstrytyNm}, #{bidwinrDcsnMthdNm}, #{bsnsDivNm}, 
+	        #{cmmnCntrctYn}, #{cmmnReciptAgrmntClseDate}, #{cmmnReciptAgrmntClseTm}, 
+	        #{cmmnReciptMethdNm}, #{cntrctCnclsMthdNm}, #{cntrctCnclsSttusNm}, 
+	        #{dataBssDate}, #{dmndInsttCd}, #{dmndInsttNm}, #{dmndInsttOfclDeptNm}, 
+	        #{dmndInsttOfclEmailAdrs}, #{dmndInsttOfclNm}, #{dmndInsttOfclTel}, 
+	        #{elctrnBidYn}, #{indstrytyLmtYn}, #{intrntnlBidYn}, #{ntceInsttCd}, 
+	        #{ntceInsttNm}, #{ntceInsttOfclDeptNm}, #{ntceInsttOfclEmailAdrs}, 
+	        #{ntceInsttOfclNm}, #{ntceInsttOfclTel}, #{opengDate}, #{opengPlce}, 
+	        #{opengTm}, #{ppsNtceYn}, #{presmptPrce}, #{presnatnOprtnDate}, 
+	        #{presnatnOprtnPlce}, #{presnatnOprtnTm}, #{presnatnOprtnYn}, #{prtcptPsblRgnNm}, 
+	        #{refNtceNo}, #{refNtceOrd}, #{rgnLmtYn}, #{rsrvtnPrceDcsnMthdNm})
+	</insert>
+	
+	
+	
+	
+	
+</mapper>
