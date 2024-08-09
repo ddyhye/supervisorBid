@@ -5,14 +5,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Main Page...</title>
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'/>" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="icon" type="image/x-icon" href="<c:url value='/img/runcat.png'/>">
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css'/>">
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css'/>">
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 
 <body>
 	<div class="container">
+		<!-- 회원 -->
 	    <div class="top">
 			<div class="top-left">
 				<span>${loginId}</span>
@@ -22,10 +24,12 @@
 			</div>
 		</div>
 		
+		<!-- 제목 -->
 		<div class="subject">
 			<h3>나라장터 입찰공고 리스트</h3>
 		</div>
 	
+		<!-- 필터링 버튼 -->
 		<div class="button">
 			<div class="button-left">
 				<!-- <select name="pagePerNum" style="height:30px">
@@ -40,6 +44,67 @@
 				<button onclick="delBbs()" style="margin: 5px">삭제</button>
 			</div>
 		</div>
+		
+		
+		<!-- 상세필터링 -->
+		<div class="memberM-top">
+   			<div class="memberM-top-search">
+   				<h4>키워드&nbsp;&nbsp;</h4>
+   				<input type="text" name="memberSearch" id="memberSearch" placeholder="공고명 검색 ..."/>
+   				<div id="memberSearchBtn">검색</div>
+   			</div>
+   			<div class="memberM-top-option">
+   				<div class="memberM-top-option-skip">
+   					<p>옵션&nbsp;</p>
+   					<i class="fa-solid fa-caret-down"></i>
+   					<i class="fa-solid fa-caret-up"></i>
+   				</div>
+   				<div class="memberM-top-option-detail">
+   					<!-- 소방, 전기, 통신 -->
+   					<div class="memberM-top-option-detail-1">
+   						<div class="memberM-top-option-detail-head">
+	   						<p>&nbsp;감리 종류&nbsp;</p>
+   						</div>
+   						<input type="radio" name="memberStateOption" value="all" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">전체</label>&nbsp;&nbsp;
+						<input type="radio" name="memberStateOption" value="periodStop" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">소방</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="stop" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">전기</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="dormant" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">통신</label>&nbsp;&nbsp;
+   					</div>
+   					<div class="memberM-top-option-detail-warning">
+   						<div class="memberM-top-option-detail-head">
+	   						<p>&nbsp;경고 횟수&nbsp;</p>
+   						</div>
+   						<select name="warningOption" id="warningOption">
+							<option value="all">전체</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+						</select>
+   					</div>
+   					<div class="memberM-top-option-detail-memberState">
+   						<div class="memberM-top-option-detail-head">
+	   						<p>&nbsp;계정 상태&nbsp;</p>
+   						</div>
+   						<input type="radio" name="memberStateOption" value="all" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">전체</label>&nbsp;&nbsp;
+						<input type="radio" name="memberStateOption" value="periodStop" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">기간 정지</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="stop" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">영구 정지</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="dormant" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">휴먼 계정</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="secession" class="memberStateOption" id="memberStateOption5"/><label for="memberStateOption5">탈퇴 계정</label>&nbsp;&nbsp;
+   					</div>
+   				</div>
+   			</div>
+   			<div class="memberM-top-optionReset">
+   				<i class="fa-solid fa-rotate-left"></i><p>&nbsp;옵션 초기화</p>
+   			</div>
+   		</div>
+		
 	
 	
 		<!-- <h3>입찰공고 검색 결과 <p id="listCnt"></p>건</h3>
@@ -120,25 +185,56 @@
 </body>
 
 <script>
-
-	// 리스트 불러오기
-    fetch('/getApiData.ajax', {
+	//option 펼침/닫힘
+	$('.memberM-top-option-skip').on('click', function(){
+		var isToggled = $(this).data('toggled');
+		
+		// $() 특정 요소 명시
+	    var $caretDown = $(this).find('.fa-caret-down');
+	    var $caretUp = $(this).find('.fa-caret-up');
+	    var $details = $('.memberM-top-option-detail');
+	
+	    if (isToggled) {
+	        $caretDown.addClass('active');
+	        $caretUp.addClass('active');
+	        $details.addClass('active');
+	    } else {
+	        $caretDown.removeClass('active');
+	        $caretUp.removeClass('active');
+	        $details.removeClass('active');
+	    }
+	    
+	    $(this).data('toggled', !isToggled);
+		
+	});
+	// 입찰공고 데이터베이스에 저장하기
+	/* fetch('/getApiData.ajax', {
         method: 'GET',
         headers: {
             'Content-type': 'application/json'
         }
     })
     .then(response => response.json())
-    .then(data => {
-		/* var listCnt = document.getElementById('listCnt');
-		while (listCnt.firstChild) {
-	        listCnt.removeChild(listCnt.firstChild);
-	    }
-		listCnt.innerHTML = data.cnt; */
-		
+    .then(data => {		
         drawBidList(data);
     })
-    .catch(error => {console.log('Error: ', error);});
+    .catch(error => {console.log('Error: ', error);}); */
+	
+
+	// 리스트 불러오기
+	fetch('/bidList.ajax', {
+		method: 'GET',
+		headers: {
+			'Content-type': 'application/json'
+		}
+	})
+    .then(response => response.json())
+    .then(data => {
+    	drawBidList(data);
+    })
+    .catch(error => {console.log('Error: ',error);});
+	
+    
 	
 	// 리스트 그리기
 	function drawBidList(data) {

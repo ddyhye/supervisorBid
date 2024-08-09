@@ -141,6 +141,22 @@ public class BidService {
 	private void insertBid(BidInfoDTO bidInfo) {
 		bidDao.insertBid(bidInfo);
 	}
+
+
+	
+	
+	
+	
+	// 입찰공고 리스트 불러오기
+	public Map<String, Object> bidList(Map<String, Object> map) {
+		List<BidInfoDTO> bidList = bidDao.bidList();
+		int cnt = bidDao.bidListCnt();
+		
+		map.put("cnt", cnt);
+        map.put("bidList", bidList);
+		
+		return map;
+	}
 	
 	
 	

@@ -61,4 +61,14 @@ public class BidController {
 
         return bidService.saveBid(map);
     }
+    
+    
+    // 리스트 불러오기
+    @GetMapping(value="bidList.ajax")
+    @ResponseBody
+    public Map<String, Object> bidList() {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	
+    	return bidService.bidList(map);
+    }
 }

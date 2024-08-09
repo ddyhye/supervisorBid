@@ -94,6 +94,176 @@ p {
 
 
 
+/* 필터링 */
+.memberM-top {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	
+	position: relative;
+	/* width: 85%; */
+	margin-bottom: 30px;
+	
+	border: 4px solid lightgray;
+	border-radius: 5px;
+}
+.memberM-top-search {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+	
+	position: relative;
+	width: 95%;
+	height: 80px;
+	margin: 5px auto;
+}
+#memberSearch {
+	width: 450px;
+	height: 30px;
+	margin-right: 5px;
+}
+#memberSearchBtn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	position: relative;
+	width: 50px;
+	height: 30px;
+	
+	color: white;
+	font-weight: bold;
+	background-color: rgb(249, 132, 158);
+	border-radius: 2px;
+}
+#memberSearchBtn:hover {
+	background-color: rgb(41 41 41);
+}
+.memberM-top-option {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	flex-direction: column;
+	
+	position: relative;
+	width: 95%;
+}
+.memberM-top-option-skip {
+	display: flex;
+	align-items: center;
+	flex-direction: row;
+}
+.fa-caret-down, .fa-caret-up {
+  --fa-display: flex; /* 이제 이 변수를 flex로 재정의합니다 */
+}
+.fa-caret-down {
+  display: flex !important; /* 기본 상태 */
+}
+.fa-caret-down.active {
+  display: none !important; /* active 클래스가 추가되면 숨김 */
+}
+.fa-caret-up {
+  display: none !important; /* 기본 상태 */
+}
+.fa-caret-up.active {
+  display: flex !important; /* active 클래스가 추가되면 표시 */
+}
+.memberM-top-option-detail {
+	display: none;
+}
+.memberM-top-option-detail.active {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	
+	position: relative;
+	width: 100%;
+	margin-top: 5px;
+}
+.memberM-top-option-detail-head {
+	position: relative;
+	width: 15%;
+	
+	font-weight: bold;
+}
+.memberM-top-option-detail-warning, .memberM-top-option-detail-1 {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	
+	position: relative;
+	width: 100%;
+	height: 40px;
+	
+	border-top: 1px solid lightgray;
+	border-left: 1px solid lightgray;
+	border-right: 2px solid lightgray;
+	border-bottom: 1px solid lightgray;
+}
+.memberM-top-option-detail-memberState {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	
+	position: relative;
+	width: 100%;
+	height: 40px;
+	
+	border-left: 1px solid lightgray;
+	border-right: 2px solid lightgray;
+	border-bottom: 2px solid lightgray;
+}
+.memberStateOption {
+  display: none;
+}
+.memberStateOption + label {
+  position: relative;
+  padding-left: 25px;
+  cursor: pointer;
+}
+.memberStateOption + label:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 15px;
+  height: 15px;
+  border: 2px solid #ddd;
+  border-radius: 50%;
+  background-color: white;
+}
+.memberStateOption:checked + label:before {
+  background-color: white;
+}
+.memberStateOption:checked + label:after {
+  content: '';
+  position: absolute;
+  left: 4.8px; 
+  top: 4.8px;
+  width: 10px;  
+  height: 10px; 
+  border-radius: 50%;
+  background-color: #22382e;
+  box-sizing: border-box;
+}
+.memberM-top-optionReset {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	
+	position: relative;
+	width: 95%;
+	height: 50px;
+	margin-top: 10px;
+}
+
+
+
+
 
 .row-div {
 	display: flex;

@@ -58,8 +58,38 @@ public class BidInfoDTO {
     private String refNtceOrd; // 참고 공고 순서
     private String rgnLmtYn; // 지역 제한 여부
     private String rsrvtnPrceDcsnMthdNm; // 예약 가격 결정 방법명
+    private int idx; // primary key
     
     
+    
+    
+	public String getCmmnCntrctYn() {
+		return cmmnCntrctYn;
+	}
+	public String getElctrnBidYn() {
+		return elctrnBidYn;
+	}
+	public String getIndstrytyLmtYn() {
+		return indstrytyLmtYn;
+	}
+	public String getIntrntnlBidYn() {
+		return intrntnlBidYn;
+	}
+	public String getPpsNtceYn() {
+		return ppsNtceYn;
+	}
+	public String getPresnatnOprtnYn() {
+		return presnatnOprtnYn;
+	}
+	public String getRgnLmtYn() {
+		return rgnLmtYn;
+	}
+	public int getIdx() {
+		return idx;
+	}
+	public void setIdx(int idx) {
+		this.idx = idx;
+	}
 	public double getAsignBdgtAmt() {
 		return asignBdgtAmt;
 	}

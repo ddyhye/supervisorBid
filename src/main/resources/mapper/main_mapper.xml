@@ -42,6 +42,18 @@
 	</insert>
 	
 	
+	<select id="bidList" resultType="bidInfo">
+		SELECT *
+		FROM bid	
+		ORDER BY bidNtceDate DESC
+	</select>
+	<select id="bidListCnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM bid	
+		ORDER BY bidNtceDate DESC
+	</select>
+	
+	
 	
 	
 	
