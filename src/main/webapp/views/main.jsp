@@ -10,6 +10,10 @@
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/common.css'/>">
     <link rel="stylesheet" type="text/css" href="<c:url value='/css/main.css'/>">
 	<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+	
+	<!-- 달력 라이브러리 css -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	
 </head>
 
 <body>
@@ -48,61 +52,90 @@
 		
 		<!-- 상세필터링 -->
 		<div class="memberM-top">
-   			<div class="memberM-top-search">
-   				<h4>키워드&nbsp;&nbsp;</h4>
-   				<input type="text" name="memberSearch" id="memberSearch" placeholder="공고명 검색 ..."/>
-   				<div id="memberSearchBtn">검색</div>
-   			</div>
-   			<div class="memberM-top-option">
-   				<div class="memberM-top-option-skip">
-   					<p>옵션&nbsp;</p>
-   					<i class="fa-solid fa-caret-down"></i>
-   					<i class="fa-solid fa-caret-up"></i>
+			<div class="option-top">
+				<div class="option-top-head">
+   					<input type="radio" name="supervisorType" value="all" checked/><label for="supervisorType1">전체</label>&nbsp;&nbsp;
+					<input type="radio" name="supervisorType" value="fire"/><label for="supervisorType2">소방</label>&nbsp;&nbsp;
+   					<input type="radio" name="supervisorType" value="electric"/><label for="supervisorType3">전기</label>&nbsp;&nbsp;
+   					<input type="radio" name="supervisorType" value="communi"/><label for="supervisorType4">통신</label>&nbsp;&nbsp;
    				</div>
+   				<div class="option-top-child">
+   					<div class="memberM-top-option-skip">
+	   					<p>상세검색&nbsp;</p>
+	   					<i class="fa-solid fa-caret-down"></i>
+	   					<i class="fa-solid fa-caret-up"></i>
+	   				</div>
+   				</div>
+			</div>
+			
+   
+   			<div class="memberM-top-option">
    				<div class="memberM-top-option-detail">
    					<!-- 소방, 전기, 통신 -->
-   					<div class="memberM-top-option-detail-1">
+   					<!-- <div class="memberM-top-option-detail-1">
    						<div class="memberM-top-option-detail-head">
 	   						<p>&nbsp;감리 종류&nbsp;</p>
    						</div>
-   						<input type="radio" name="memberStateOption" value="all" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">전체</label>&nbsp;&nbsp;
-						<input type="radio" name="memberStateOption" value="periodStop" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">소방</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="stop" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">전기</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="dormant" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">통신</label>&nbsp;&nbsp;
+   						<input type="radio" name="supervisorType" value="all" checked/><label for="supervisorType1">전체</label>&nbsp;&nbsp;
+						<input type="radio" name="supervisorType" value="fire"/><label for="supervisorType2">소방</label>&nbsp;&nbsp;
+   						<input type="radio" name="supervisorType" value="electric"/><label for="supervisorType3">전기</label>&nbsp;&nbsp;
+   						<input type="radio" name="supervisorType" value="communi"/><label for="supervisorType4">통신</label>&nbsp;&nbsp;
+   					</div> -->
+   					<!-- <div class="memberM-top-search">
+		   				<h4>키워드&nbsp;&nbsp;</h4>
+		   				<input type="text" name="memberSearch" id="memberSearch" placeholder="공고명 검색 ..."/>
+		   				<div id="memberSearchBtn">검색</div>
+		   			</div> -->
+		   			<div class="memberM-top-option-detail-1">
+   						<div class="memberM-top-option-detail-head">
+	   						<p>&nbsp;&nbsp;키워드&nbsp;</p>
+   						</div>
+   						<input type="text" name="memberSearch" id="memberSearch" placeholder="공고명 검색 ..."/>
+   					</div>
+   					<div class="memberM-top-option-detail-1">
+   						<div class="memberM-top-option-detail-head">
+	   						<p>&nbsp;&nbsp;기&nbsp;&nbsp;&nbsp;간&nbsp;</p>
+   						</div>
+   						<div class="datePickerDiv">
+	   						<input type="text" id="strDatePicker" placeholder="Select Date...">
+	   						<i class="fa-regular fa-calendar"></i>
+   						</div>
+   						&nbsp;~&nbsp;
+   						<div class="datePickerDiv">
+	   						<input type="text" id="endDatePicker" placeholder="Select Date...">
+	   						<i class="fa-regular fa-calendar"></i>
+   						</div>
+   						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+   						<input type="radio" name="recently" value="all" class="memberStateOption" id="memberStateOption1"/><label for="memberStateOption1">최근 1개월</label>&nbsp;&nbsp;
+   						
    					</div>
    					<div class="memberM-top-option-detail-warning">
    						<div class="memberM-top-option-detail-head">
-	   						<p>&nbsp;경고 횟수&nbsp;</p>
+	   						<p>&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;한&nbsp;</p>
    						</div>
-   						<select name="warningOption" id="warningOption">
-							<option value="all">전체</option>
-							<option value="0">0</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-							<option value="5">5</option>
-							<option value="6">6</option>
-							<option value="7">7</option>
-							<option value="8">8</option>
-							<option value="9">9</option>
-						</select>
-   					</div>
+   						<input type="checkbox" name="limit" id="endList" value="endList"/>마감공고 제외&nbsp;&nbsp;&nbsp;&nbsp;
+   						<input type="checkbox" name="limit" id="limitList" value="limitList"/>투잘제한 제외
+   					</div>  
+   					<!-- 참가제한지역 빼기, 공동협정, 마감공고제외 -->
    					<div class="memberM-top-option-detail-memberState">
    						<div class="memberM-top-option-detail-head">
-	   						<p>&nbsp;계정 상태&nbsp;</p>
+	   						<p>&nbsp;&nbsp;정&nbsp;&nbsp;&nbsp;렬&nbsp;</p>
    						</div>
-   						<input type="radio" name="memberStateOption" value="all" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">전체</label>&nbsp;&nbsp;
-						<input type="radio" name="memberStateOption" value="periodStop" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">기간 정지</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="stop" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">영구 정지</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="dormant" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">휴먼 계정</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="secession" class="memberStateOption" id="memberStateOption5"/><label for="memberStateOption5">탈퇴 계정</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="all" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">공고일순</label>&nbsp;&nbsp;
+						<input type="radio" name="memberStateOption" value="periodStop" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">마감일순</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="stop" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">고가순</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="dormant" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">저가순</label>&nbsp;&nbsp;
    					</div>
+   					<!-- 버튼 영역 -->
+	   				<div class="option-btn">
+	   					<div id="optionBtn1">검색</div>
+	   					<div id="optionBtn2"><p>초기화&nbsp;</p><i class="fa-solid fa-rotate-left"></i></div>
+	   				</div>
    				</div>
    			</div>
-   			<div class="memberM-top-optionReset">
+   			<!-- <div class="memberM-top-optionReset">
    				<i class="fa-solid fa-rotate-left"></i><p>&nbsp;옵션 초기화</p>
-   			</div>
+   			</div> -->
    		</div>
 		
 	
@@ -182,6 +215,9 @@
 			</table>
 		</div>
 	</div>
+	
+	<!-- 달력 라이브러리 -->
+	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 </body>
 
 <script>
@@ -207,6 +243,23 @@
 	    $(this).data('toggled', !isToggled);
 		
 	});
+	
+	
+	// 옵션 - 기간 선택
+	document.addEventListener('DOMContentLoaded', function() {
+		// 시작 날짜
+		flatpickr('#strDatePicker', {
+            dateFormat: 'Y-m-d',  
+            allowInput: true
+        });
+		// 종료 날짜
+		flatpickr('#endDatePicker', {
+            dateFormat: 'Y-m-d',  
+            allowInput: true
+        });
+	});
+	
+	
 	// 입찰공고 데이터베이스에 저장하기
 	/* fetch('/getApiData.ajax', {
         method: 'GET',
@@ -222,6 +275,7 @@
 	
 
 	// 리스트 불러오기
+	/*
 	fetch('/bidList.ajax', {
 		method: 'GET',
 		headers: {
@@ -232,7 +286,7 @@
     .then(data => {
     	drawBidList(data);
     })
-    .catch(error => {console.log('Error: ',error);});
+    .catch(error => {console.log('Error: ',error);});*/
 	
     
 	

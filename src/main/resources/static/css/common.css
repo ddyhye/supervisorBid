@@ -55,3 +55,38 @@ body {
 	text-align: center; 
     vertical-align: middle; 
 }
+
+
+
+
+
+/* radio 버튼 색상 변경 */
+/* 라디오 버튼 숨기기 */
+input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #ccc; /* 경계선 색상 */
+    border-radius: 50%;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+/* 라디오 버튼 선택시 스타일 */
+input[type="radio"]:checked {
+}
+
+/* 선택된 라디오 버튼 안의 동그라미 표시 */
+input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgb(41 41 41); /* 내부 동그라미 색상 */
+
+    transform: translate(25%, 25%);
+}

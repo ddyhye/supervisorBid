@@ -103,10 +103,107 @@ p {
 	position: relative;
 	/* width: 85%; */
 	margin-bottom: 30px;
+	padding: 10px 20px;
 	
 	border: 4px solid lightgray;
 	border-radius: 5px;
 }
+
+.option-top {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	
+	position: relative;
+	width: 100%;
+	height: 40px;
+}
+.option-top-head {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	
+	position: relative;
+	width: 60%;
+	
+	/* border-top: 1px solid lightgray;
+	border-left: 1px solid lightgray;
+	border-right: 2px solid lightgray; */
+}
+
+.option-top-child {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	flex-direction: row;
+	
+	position: relative;
+	width: 40%;
+}
+
+
+/* 버튼 영역 */
+.option-btn {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: row;
+	
+	position: relative;
+	width: 100%;
+	padding-top: 10px;
+	gap: 10px;
+}
+#optionBtn1, #optionBtn2 {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	
+	position: relative;
+	width: 100px;
+	height: 30px;
+	
+	font-weight: bold;
+	color: white;
+	/*background-color: rgb(249, 132, 158); */
+	border-radius: 2px;
+}
+#optionBtn1 {
+	background-color: rgb(249, 132, 158);
+}
+#optionBtn2 {
+	background-color: rgb(163, 163, 163);
+}
+#optionBtn1:hover, #optionBtn2:hover {
+	background-color: rgb(41 41 41);
+}
+
+
+/* 달력 라이브러리 */
+.datePickerDiv {
+	position: relative;
+}
+#strDatePicker, #endDatePicker {
+	width: 120px;
+	height: 25px;
+}
+.fa-calendar {
+	position: absolute;
+	right: 5px;
+	top: 3.5px;
+}
+
+
+
+
+
+
+
+
+
+
 .memberM-top-search {
 	display: flex;
 	align-items: center;
@@ -119,26 +216,10 @@ p {
 }
 #memberSearch {
 	width: 450px;
-	height: 30px;
+	height: 25px;
 	margin-right: 5px;
 }
-#memberSearchBtn {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	
-	position: relative;
-	width: 50px;
-	height: 30px;
-	
-	color: white;
-	font-weight: bold;
-	background-color: rgb(249, 132, 158);
-	border-radius: 2px;
-}
-#memberSearchBtn:hover {
-	background-color: rgb(41 41 41);
-}
+
 .memberM-top-option {
 	display: flex;
 	align-items: flex-start;
@@ -146,7 +227,7 @@ p {
 	flex-direction: column;
 	
 	position: relative;
-	width: 95%;
+	width: 100%;
 }
 .memberM-top-option-skip {
 	display: flex;
@@ -187,7 +268,29 @@ p {
 	
 	font-weight: bold;
 }
-.memberM-top-option-detail-warning, .memberM-top-option-detail-1 {
+
+
+/* 감리 종류 */
+.memberM-top-option-detail-1 {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	flex-direction: row;
+	
+	position: relative;
+	width: 100%;
+	height: 40px;
+	
+	border-top: 1px solid lightgray;
+	border-left: 1px solid lightgray;
+	border-right: 2px solid lightgray;
+}
+
+
+
+
+
+.memberM-top-option-detail-warning {
 	display: flex;
 	align-items: center;
 	justify-content: flex-start;
@@ -216,6 +319,7 @@ p {
 	border-right: 2px solid lightgray;
 	border-bottom: 2px solid lightgray;
 }
+/*
 .memberStateOption {
   display: none;
 }
@@ -248,7 +352,7 @@ p {
   border-radius: 50%;
   background-color: #22382e;
   box-sizing: border-box;
-}
+}*/
 .memberM-top-optionReset {
 	display: flex;
 	align-items: center;
