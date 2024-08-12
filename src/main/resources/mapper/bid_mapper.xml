@@ -42,6 +42,7 @@
 	</insert>
 	
 	
+	<!-- 리스트 -->
 	<select id="bidList" resultType="bidInfo">
 		SELECT *
 		FROM bid	
@@ -51,6 +52,53 @@
 		SELECT COUNT(*)
 		FROM bid	
 		ORDER BY bidNtceDate DESC
+	</select>
+	
+	
+	<!-- 필터링에 따른 입찰공고 리스트 -->
+	<select id="filterBidList" parameterType="filter" resultType="bidInfo">
+		SELECT * 
+		FROM bid
+		<where> 1=1
+			<if test="supervisorType == 'all'">
+			</if>
+			<if test="supervisorType == 'fire'">
+				AND bidNtceNm LIKE CONCAT('%', '소방', '%')
+			</if>
+			<if test="supervisorType == 'electric'">
+				AND bidNtceNm LIKE CONCAT('%', '전기', '%')
+			</if>
+			<if test="supervisorType == 'communi'">
+				AND bidNtceNm LIKE CONCAT('%', '통신', '%')
+			</if>
+			<if test="strDate != ''">
+				AND (STR_TO_DATE(bidClseDate, '%Y-%m-%d') BETWEEN #{strDate} AND #{endDate})
+			</if>
+			<if test="dateLimit == 'true'">
+				AND STR_TO_DATE(bidClseDate, '%Y-%m-%d') >= CURDATE() + INTERVAL 1 DAY
+			</if>
+			<if test="regionLimit == 'true'">
+				AND prtcptPsblRgnNm = ''
+			</if>
+			<if test="togetherLimit == 'true'">
+				AND cmmnReciptMethdNm = '공동수급불허'
+			</if>
+		</where>
+		ORDER BY 
+		    <choose>
+		        <when test="array == 'basic'">
+		            bidNtceDate DESC
+		        </when>
+		        <when test="array == 'end'">
+		            bidClseDate ASC
+		        </when>
+		        <when test="array == 'high'">
+		            asignBdgtAmt DESC
+		        </when>
+		        <otherwise>
+		            asignBdgtAmt ASC
+		        </otherwise>
+		    </choose>
 	</select>
 	
 	

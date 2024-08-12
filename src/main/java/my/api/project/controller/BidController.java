@@ -25,6 +25,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -36,6 +38,7 @@ import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 import my.api.project.config.ApiConfiguration;
 import my.api.project.dto.BidInfoDTO;
+import my.api.project.dto.FilterDTO;
 import my.api.project.service.BidService;
 
 @Controller
@@ -71,4 +74,23 @@ public class BidController {
     	
     	return bidService.bidList(map);
     }
+    
+    
+    
+    
+    
+    
+    // 필터링
+    @PostMapping(value="filterBidList.ajax")
+    @ResponseBody
+    public Map<String, Object> filterBidList(@RequestBody FilterDTO data) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	
+    	logger.info("필터링 정보 >> {}",data);
+    	logger.info(data.getSupervisorType());
+    	logger.info(data.getArray());
+    	
+    	return bidService.filterBidList(map, data);
+    }
+    
 }

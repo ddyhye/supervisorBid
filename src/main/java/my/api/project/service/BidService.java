@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import my.api.project.dao.BidDAO;
 import my.api.project.dto.BidInfoDTO;
+import my.api.project.dto.FilterDTO;
 
 @Service
 public class BidService {
@@ -153,6 +154,19 @@ public class BidService {
 		int cnt = bidDao.bidListCnt();
 		
 		map.put("cnt", cnt);
+        map.put("bidList", bidList);
+		
+		return map;
+	}
+
+
+	
+	// 필터링한 입찰공고 리스트 불러오기
+	public Map<String, Object> filterBidList(Map<String, Object> map, FilterDTO data) {
+		List<BidInfoDTO> bidList = bidDao.filterBidList(data);
+		//int cnt = bidDao.filterBidListCnt(data);
+		
+		//map.put("cnt", cnt);
         map.put("bidList", bidList);
 		
 		return map;

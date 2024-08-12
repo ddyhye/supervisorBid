@@ -54,10 +54,10 @@
 		<div class="memberM-top">
 			<div class="option-top">
 				<div class="option-top-head">
-   					<input type="radio" name="supervisorType" value="all" checked/><label for="supervisorType1">전체</label>&nbsp;&nbsp;
-					<input type="radio" name="supervisorType" value="fire"/><label for="supervisorType2">소방</label>&nbsp;&nbsp;
-   					<input type="radio" name="supervisorType" value="electric"/><label for="supervisorType3">전기</label>&nbsp;&nbsp;
-   					<input type="radio" name="supervisorType" value="communi"/><label for="supervisorType4">통신</label>&nbsp;&nbsp;
+   					<input type="radio" name="supervisorType" class="supervisorType" value="all" checked/><label for="supervisorType1">전체</label>&nbsp;&nbsp;
+					<input type="radio" name="supervisorType" class="supervisorType" value="fire"/><label for="supervisorType2">소방</label>&nbsp;&nbsp;
+   					<input type="radio" name="supervisorType" class="supervisorType" value="electric"/><label for="supervisorType3">전기</label>&nbsp;&nbsp;
+   					<input type="radio" name="supervisorType" class="supervisorType" value="communi"/><label for="supervisorType4">통신</label>&nbsp;&nbsp;
    				</div>
    				<div class="option-top-child">
    					<div class="memberM-top-option-skip">
@@ -68,24 +68,9 @@
    				</div>
 			</div>
 			
-   
+
    			<div class="memberM-top-option">
    				<div class="memberM-top-option-detail">
-   					<!-- 소방, 전기, 통신 -->
-   					<!-- <div class="memberM-top-option-detail-1">
-   						<div class="memberM-top-option-detail-head">
-	   						<p>&nbsp;감리 종류&nbsp;</p>
-   						</div>
-   						<input type="radio" name="supervisorType" value="all" checked/><label for="supervisorType1">전체</label>&nbsp;&nbsp;
-						<input type="radio" name="supervisorType" value="fire"/><label for="supervisorType2">소방</label>&nbsp;&nbsp;
-   						<input type="radio" name="supervisorType" value="electric"/><label for="supervisorType3">전기</label>&nbsp;&nbsp;
-   						<input type="radio" name="supervisorType" value="communi"/><label for="supervisorType4">통신</label>&nbsp;&nbsp;
-   					</div> -->
-   					<!-- <div class="memberM-top-search">
-		   				<h4>키워드&nbsp;&nbsp;</h4>
-		   				<input type="text" name="memberSearch" id="memberSearch" placeholder="공고명 검색 ..."/>
-		   				<div id="memberSearchBtn">검색</div>
-		   			</div> -->
 		   			<div class="memberM-top-option-detail-1">
    						<div class="memberM-top-option-detail-head">
 	   						<p>&nbsp;&nbsp;키워드&nbsp;</p>
@@ -109,22 +94,23 @@
    						<input type="radio" name="recently" value="all" class="memberStateOption" id="memberStateOption1"/><label for="memberStateOption1">최근 1개월</label>&nbsp;&nbsp;
    						
    					</div>
+
    					<div class="memberM-top-option-detail-warning">
    						<div class="memberM-top-option-detail-head">
 	   						<p>&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;한&nbsp;</p>
    						</div>
-   						<input type="checkbox" name="limit" id="endList" value="endList"/>마감공고 제외&nbsp;&nbsp;&nbsp;&nbsp;
-   						<input type="checkbox" name="limit" id="limitList" value="limitList"/>투잘제한 제외
+   						<input type="checkbox" name="limit" id="dateLimit" value="dateLimit"/>마감공고 제외&nbsp;&nbsp;&nbsp;&nbsp;
+   						<input type="checkbox" name="limit" id="regionLimit" value="regionLimit"/>투잘제한 제외
+   						<input type="checkbox" name="limit" id="togetherLimit" value="togetherLimit"/>공동협정 제외
    					</div>  
-   					<!-- 참가제한지역 빼기, 공동협정, 마감공고제외 -->
    					<div class="memberM-top-option-detail-memberState">
    						<div class="memberM-top-option-detail-head">
 	   						<p>&nbsp;&nbsp;정&nbsp;&nbsp;&nbsp;렬&nbsp;</p>
    						</div>
-   						<input type="radio" name="memberStateOption" value="all" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">공고일순</label>&nbsp;&nbsp;
-						<input type="radio" name="memberStateOption" value="periodStop" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">마감일순</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="stop" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">고가순</label>&nbsp;&nbsp;
-   						<input type="radio" name="memberStateOption" value="dormant" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">저가순</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="basic" class="memberStateOption" id="memberStateOption1" checked/><label for="memberStateOption1">공고일순</label>&nbsp;&nbsp;
+						<input type="radio" name="memberStateOption" value="end" class="memberStateOption" id="memberStateOption2"/><label for="memberStateOption2">마감일순</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="high" class="memberStateOption" id="memberStateOption3"/><label for="memberStateOption3">고가순</label>&nbsp;&nbsp;
+   						<input type="radio" name="memberStateOption" value="low" class="memberStateOption" id="memberStateOption4"/><label for="memberStateOption4">저가순</label>&nbsp;&nbsp;
    					</div>
    					<!-- 버튼 영역 -->
 	   				<div class="option-btn">
@@ -133,16 +119,14 @@
 	   				</div>
    				</div>
    			</div>
-   			<!-- <div class="memberM-top-optionReset">
-   				<i class="fa-solid fa-rotate-left"></i><p>&nbsp;옵션 초기화</p>
-   			</div> -->
    		</div>
 		
-	
 	
 		<!-- <h3>입찰공고 검색 결과 <p id="listCnt"></p>건</h3>
 		
 		<hr/> -->
+		
+		
 		<div id="container">
 			<div class="list">
 				<div class="list-left">
@@ -287,6 +271,54 @@
     	drawBidList(data);
     })
     .catch(error => {console.log('Error: ',error);});*/
+    
+    // 필터링하여 리스트 불러오기
+	 document.getElementById('optionBtn1').addEventListener('click', function() {
+		 filterBidList();
+	 });
+	 
+	function filterBidList() {
+		var supervisorType = document.querySelector('input[name="supervisorType"]:checked').value;
+		var keyword = document.getElementById('memberSearch').value;
+		var strDate = document.getElementById('strDatePicker').value;
+		var endDate = document.getElementById('endDatePicker').value;
+		var dateLimit = document.getElementById('dateLimit').checked;
+		var regionLimit = document.getElementById('regionLimit').checked;
+		var togetherLimit = document.getElementById('togetherLimit').checked;
+		var array = document.querySelector('input[name="memberStateOption"]:checked').value;
+		
+		if ((strDate === '' && endDate !== '') || (strDate !== '' && endDate === '')) {
+			alert("시작 기간과 종료 기간 모두 설정해주세요!");
+			return; 
+		}
+		 
+		const data = {
+			supervisorType: supervisorType,
+			keyword: keyword,
+			strDate: strDate,
+			endDate: endDate,
+			dateLimit: dateLimit,
+			regionLimit: regionLimit,
+			togetherLimit: togetherLimit,
+			array: array
+		}
+		 
+		// 서버로 필터링 값 전송
+		fetch('/filterBidList.ajax', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json'
+			},
+			body: JSON.stringify(data)
+		})
+		.then(response => response.json())
+		.then(data => {
+			drawBidList(data);
+		})
+		.catch(error => {console.log('Error: ', error);});
+	}
+    
+    
 	
     
 	
