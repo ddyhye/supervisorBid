@@ -274,7 +274,12 @@
     
     // 필터링하여 리스트 불러오기
 	 document.getElementById('optionBtn1').addEventListener('click', function() {
+		 // 필터링
 		 filterBidList();
+		 
+		 // 메일 전송
+		 sendMail();
+		 
 	 });
 	 
 	function filterBidList() {
@@ -316,10 +321,7 @@
 			drawBidList(data);
 		})
 		.catch(error => {console.log('Error: ', error);});
-	}
-    
-    
-	
+	}	
     
 	
 	// 리스트 그리기
@@ -368,6 +370,24 @@
 		}
 		
 		container.innerHTML = content;
+	}
+	
+	
+	
+	
+	// 메일 전송
+	function sendMail() {
+		fetch('/sendMail.ajax', {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data.msg);
+		})
+		.catch(error => {console.log('Error: ',error);});
 	}
 </script>
 

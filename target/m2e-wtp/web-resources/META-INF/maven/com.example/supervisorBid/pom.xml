@@ -89,7 +89,6 @@
 		    <version>4.5.13</version>
 		</dependency>
 		
-		
 		<!-- mybatis -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -103,6 +102,12 @@
 			<artifactId>mariadb-java-client</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- 메일 -->
+	    <dependency>
+	        <groupId>org.springframework.boot</groupId>
+	        <artifactId>spring-boot-starter-mail</artifactId>
+	    </dependency>
 		
 		
 		

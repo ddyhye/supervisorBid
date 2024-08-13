@@ -81,7 +81,7 @@ public class BidController {
     
     
     // 필터링
-    @PostMapping(value="filterBidList.ajax")
+    @PostMapping(value="/filterBidList.ajax")
     @ResponseBody
     public Map<String, Object> filterBidList(@RequestBody FilterDTO data) {
     	Map<String, Object> map = new HashMap<String, Object>();
