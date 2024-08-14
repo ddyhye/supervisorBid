@@ -32,7 +32,7 @@ public class EmailService {
 	public Map<String, Object> sendHtmlEmail() {
 		Map<String, Object> map = new HashMap<String, Object>();
 		
-		String to = "ddy.hye@gmail.com"; 
+		String to = "my.test0721@gmail.com"; 
 		String subject = "새로운 입찰공고 입니다."; 
 		String htmlContent = newBidList();
 		
@@ -48,7 +48,7 @@ public class EmailService {
 				helper.setText(htmlContent, true);
 				helper.setFrom("my.test0721@gmail.com");
 				
-				mailSender.send(message);
+				mailSender.send(message);				
 				
 				map.put("msg", "success!!");
 			} catch (MessagingException e) {
@@ -84,24 +84,24 @@ public class EmailService {
 			// 입찰공고명
 			msg += "<h4>[ "+dto.getBidNtceNm()+" ]</h4>";
 			// 금액
-			String formatNum = String.format("%,d", dto.getAsignBdgtAmt());
+			long price = (long) dto.getAsignBdgtAmt();
+			String formatNum = String.format("%,d", price);
 			msg += "<p style='font-weight: bold;'>금액 >> <span>"+formatNum+" 원</span></p>";
 			// 공고일시 / 입찰일시 / 입찰 마감 일시
 			msg += "<p style='font-weight: bold;'>공고일자 >> <span>"+dto.getBidNtceDate()+"</span></p>";
 			msg += "<p style='font-weight: bold;'>입찰기간 >> <span>"+dto.getBidBeginDate()+" ~ "+dto.getBidClseDate()+"</span></p>";
 			// 공동수급여부
-			String str = "";
-			if (dto.getCmmnReciptMethdNm().equals("공동수급불허")) {
-				str += "N";
-			} else {
-				str += "Y";
-			}
-			msg += "<p style='font-weight: bold;'>공동수급여부 >> <span>"+str+"</span></p>";
+			msg += "<p style='font-weight: bold;'>공동수급여부 >> <span>"+dto.getCmmnReciptMethdNm()+"</span></p>";
 			// 링크
 			msg += "<p style='font-weight: bold;'>링크 >> <span><a href="+dto.getBidNtceUrl()+">"+dto.getBidNtceNm()+"</a></span></p>";
 			msg += "<br/>";
 			msg += "<hr/>";
 			msg += "<br/>";
+			
+			
+			// 담았으면, send 컬럼을 Y로 변경하자.
+			// **주의, 에러났으면 되돌려야함. 트랜젝션을 써야할듯.
+			bidDao.updateBid(dto.getIdx());
 		}
 		
 		

@@ -66,6 +66,10 @@ public class BidController {
     }
     
     
+    
+    
+    
+    
     // 리스트 불러오기
     @GetMapping(value="bidList.ajax")
     @ResponseBody

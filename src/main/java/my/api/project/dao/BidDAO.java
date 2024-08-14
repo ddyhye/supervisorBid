@@ -26,4 +26,6 @@ public interface BidDAO {
 
 	int newBidCnt();
 
+	void updateBid(int i);
+
 }

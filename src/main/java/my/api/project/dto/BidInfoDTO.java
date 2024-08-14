@@ -5,7 +5,7 @@ import org.apache.ibatis.type.Alias;
 @Alias(value="bidInfo")
 public class BidInfoDTO {
 	//bidNtceSttusNm bsnsDivNm
-	private long asignBdgtAmt; // 예산 금액
+	private double asignBdgtAmt; // 예산 금액
     private String bidBeginDate; // 입찰 시작 날짜
     private String bidBeginTm; // 입찰 시작 시간
     private String bidClseDate; // 입찰 종료 날짜
@@ -90,7 +90,7 @@ public class BidInfoDTO {
 	public void setIdx(int idx) {
 		this.idx = idx;
 	}
-	public long getAsignBdgtAmt() {
+	public double getAsignBdgtAmt() {
 		return asignBdgtAmt;
 	}
 	public String getBidBeginDate() {
@@ -142,9 +142,6 @@ public class BidInfoDTO {
 	public String getBsnsDivNm() {
 		return bsnsDivNm;
 	}
-	public String isCmmnCntrctYn() {
-		return cmmnCntrctYn;
-	}
 	public String getCmmnReciptAgrmntClseDate() {
 		return cmmnReciptAgrmntClseDate;
 	}
@@ -181,15 +178,6 @@ public class BidInfoDTO {
 	public String getDmndInsttOfclTel() {
 		return dmndInsttOfclTel;
 	}
-	public String isElctrnBidYn() {
-		return elctrnBidYn;
-	}
-	public String isIndstrytyLmtYn() {
-		return indstrytyLmtYn;
-	}
-	public String isIntrntnlBidYn() {
-		return intrntnlBidYn;
-	}
 	public String getNtceInsttCd() {
 		return ntceInsttCd;
 	}
@@ -217,9 +205,6 @@ public class BidInfoDTO {
 	public String getOpengTm() {
 		return opengTm;
 	}
-	public String isPpsNtceYn() {
-		return ppsNtceYn;
-	}
 	public double getPresmptPrce() {
 		return presmptPrce;
 	}
@@ -232,9 +217,6 @@ public class BidInfoDTO {
 	public String getPresnatnOprtnTm() {
 		return presnatnOprtnTm;
 	}
-	public String isPresnatnOprtnYn() {
-		return presnatnOprtnYn;
-	}
 	public String getPrtcptPsblRgnNm() {
 		return prtcptPsblRgnNm;
 	}
@@ -244,13 +226,10 @@ public class BidInfoDTO {
 	public String getRefNtceOrd() {
 		return refNtceOrd;
 	}
-	public String isRgnLmtYn() {
-		return rgnLmtYn;
-	}
 	public String getRsrvtnPrceDcsnMthdNm() {
 		return rsrvtnPrceDcsnMthdNm;
 	}
-	public void setAsignBdgtAmt(long asignBdgtAmt) {
+	public void setAsignBdgtAmt(double asignBdgtAmt) {
 		this.asignBdgtAmt = asignBdgtAmt;
 	}
 	public void setBidBeginDate(String bidBeginDate) {

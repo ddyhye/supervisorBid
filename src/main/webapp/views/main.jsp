@@ -99,8 +99,8 @@
    						<div class="memberM-top-option-detail-head">
 	   						<p>&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;한&nbsp;</p>
    						</div>
-   						<input type="checkbox" name="limit" id="dateLimit" value="dateLimit"/>마감공고 제외&nbsp;&nbsp;&nbsp;&nbsp;
-   						<input type="checkbox" name="limit" id="regionLimit" value="regionLimit"/>투잘제한 제외
+   						<input type="checkbox" name="limit" id="dateLimit" value="dateLimit"/>마감공고 제외&nbsp;&nbsp;&nbsp;
+   						<input type="checkbox" name="limit" id="regionLimit" value="regionLimit"/>투잘 제한 제외&nbsp;&nbsp;&nbsp;
    						<input type="checkbox" name="limit" id="togetherLimit" value="togetherLimit"/>공동협정 제외
    					</div>  
    					<div class="memberM-top-option-detail-memberState">
@@ -245,7 +245,8 @@
 	
 	
 	// 입찰공고 데이터베이스에 저장하기
-	/* fetch('/getApiData.ajax', {
+	/*
+	fetch('/getApiData.ajax', {
         method: 'GET',
         headers: {
             'Content-type': 'application/json'
@@ -255,7 +256,7 @@
     .then(data => {		
         drawBidList(data);
     })
-    .catch(error => {console.log('Error: ', error);}); */
+    .catch(error => {console.log('Error: ', error);});*/
 	
 
 	// 리스트 불러오기

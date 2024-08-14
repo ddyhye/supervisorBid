@@ -75,7 +75,7 @@ public class BidService {
         			+"&pageNo="+pageNo
         			+"&numOfRows="+numOfRows
         			+"&type=json"
-        			+"&bidNtceBgnDt=202408060000"
+        			+"&bidNtceBgnDt=202408141200"
         			+"&bidNtceEndDt="+formattedNow;
         	
         	
@@ -105,9 +105,12 @@ public class BidService {
         					for (JsonNode itemNode : itemsNode) {
         						BidInfoDTO bidInfo = objectMapper.treeToValue(itemNode, BidInfoDTO.class);
         						
-        						if ((bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
-        								&& (bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신"))
-        								&& bidInfo.getBidNtceNm().contains("감리")) {
+        						if (
+        								(bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
+        								&& (((bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신")) && bidInfo.getBidNtceNm().contains("감리"))
+        									|| bidInfo.getBidNtceNm().contains("건설사업관리"))
+        								&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약")
+        							) {
         							insertBid(bidInfo);
         							
         							cnt++;
