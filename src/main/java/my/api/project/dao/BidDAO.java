@@ -20,4 +20,6 @@ public interface BidDAO {
 
 	int filterBidListCnt(FilterDTO data);
 
+	BidInfoDTO newBid();
+
 }

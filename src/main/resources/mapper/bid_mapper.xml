@@ -104,5 +104,15 @@
 	
 	
 	
+	<!-- 새로운 입찰 공고 (메일로 발송해야 할) -->
+	<select id="newBid" resultType="bidInfo">
+		SELECT bidNtceNm, asignBdgtAmt, bidNtceDate, bidBeginDate, bidClseDate, cmmnReciptMethdNm, bidNtceUrl
+		FROM bid 
+		WHERE send = 'N' 
+		LIMIT 1
+	</select>
+	
+	
+	
 	
 </mapper>

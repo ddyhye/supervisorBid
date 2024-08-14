@@ -275,7 +275,7 @@
     // 필터링하여 리스트 불러오기
 	 document.getElementById('optionBtn1').addEventListener('click', function() {
 		 // 필터링
-		 filterBidList();
+		 //filterBidList();
 		 
 		 // 메일 전송
 		 sendMail();

@@ -25,11 +25,12 @@ public class EmailController {
 	public Map<String, Object> sendMail() {
 		logger.info("이메일 전송 >> ");
 		
-		String to = "ddy.hye@gmail.com";
-		String subject = "Mail Send Test";
-		String htmlContent = "<h1>Hello World!!!</h1>";
+		/*
+		 * String to = "ddy.hye@gmail.com"; String subject = "Mail Send Test"; String
+		 * htmlContent = "<h1>Hello World!!!</h1>";
+		 */
 		
-		return emailService.sendHtmlEmail(to, subject, htmlContent);
+		return emailService.sendHtmlEmail();
 	}
 
 }
