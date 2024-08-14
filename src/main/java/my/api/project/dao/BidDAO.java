@@ -22,4 +22,8 @@ public interface BidDAO {
 
 	BidInfoDTO newBid();
 
+	List<BidInfoDTO> newBidList();
+
+	int newBidCnt();
+
 }
