@@ -101,6 +101,7 @@ public class EmailService {
 			
 			// 담았으면, send 컬럼을 Y로 변경하자.
 			// **주의, 에러났으면 되돌려야함. 트랜젝션을 써야할듯.
+			// 해결
 			bidDao.updateBid(dto.getIdx());
 		}
 		
