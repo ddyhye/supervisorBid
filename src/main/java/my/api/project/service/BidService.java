@@ -75,7 +75,7 @@ public class BidService {
         			+"&pageNo="+pageNo
         			+"&numOfRows="+numOfRows
         			+"&type=json"
-        			+"&bidNtceBgnDt=202408141200"
+        			+"&bidNtceBgnDt=202407260000"
         			+"&bidNtceEndDt="+formattedNow;
         	
         	
@@ -105,17 +105,50 @@ public class BidService {
         					for (JsonNode itemNode : itemsNode) {
         						BidInfoDTO bidInfo = objectMapper.treeToValue(itemNode, BidInfoDTO.class);
         						
+        						// 건설사업관리가 아니라,, 투찰제한업종에서 필터링하자.
+        						/*
         						if (
-        								(bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
-        								&& (((bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신")) && bidInfo.getBidNtceNm().contains("감리"))
-        									|| bidInfo.getBidNtceNm().contains("건설사업관리"))
-        								&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약")
+        								((bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
+        									&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약")
+        									&& (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도"))
+        								)
+        								&& 
+        								(bidInfo.getBidprcPsblIndstrytyNm().contains("감리")
+        									|| (((bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신")) && bidInfo.getBidNtceNm().contains("감리"))
+        										|| bidInfo.getBidNtceNm().contains("건설사업관리"))
+        								)
         							) {
         							insertBid(bidInfo);
         							
         							cnt++;
         							bidList.add(bidInfo);
 								}
+								*/
+        						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도")) {
+        							if (
+        								((bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
+        										&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약"))
+        								&& 
+        								(bidInfo.getBidprcPsblIndstrytyNm().contains("감리")
+        										|| (((bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신")) && bidInfo.getBidNtceNm().contains("감리"))
+        												|| bidInfo.getBidNtceNm().contains("건설사업관리"))
+        								)
+        							) {
+        								
+        								String tooLong = bidInfo.getBidprcPsblIndstrytyNm();
+        								if (tooLong.length() > 255) {  // 만약 길이가 255자를 초과한다면
+        									tooLong = tooLong.substring(0, 255);  // 255자까지만 잘라냄
+        									
+        									bidInfo.setBidprcPsblIndstrytyNm(tooLong);
+        								}
+        								
+    									insertBid(bidInfo);
+    									
+    									cnt++;
+    									bidList.add(bidInfo);
+        								
+									}
+        						}
         					}
         				}
         				

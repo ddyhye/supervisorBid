@@ -44,8 +44,8 @@
 				</select> -->
 			</div>
 			<div class="button-right">
-				<button style="margin: 5px" onclick="location.href='write.go'">필터링</button>
-				<button onclick="delBbs()" style="margin: 5px">삭제</button>
+				<!-- <button style="margin: 5px" onclick="location.href='write.go'"></button> -->
+				<button onclick="sendMail()" style="margin: 5px">Send</button>
 			</div>
 		</div>
 		
@@ -245,7 +245,6 @@
 	
 	
 	// 입찰공고 데이터베이스에 저장하기
-	/*
 	fetch('/getApiData.ajax', {
         method: 'GET',
         headers: {
@@ -256,10 +255,10 @@
     .then(data => {		
         drawBidList(data);
     })
-    .catch(error => {console.log('Error: ', error);});*/
+    .catch(error => {console.log('Error: ', error);});
 	
 
-	// 리스트 불러오기
+	// 리스트 불러오기 (필터링 X)
 	/*
 	fetch('/bidList.ajax', {
 		method: 'GET',
@@ -273,14 +272,33 @@
     })
     .catch(error => {console.log('Error: ',error);});*/
     
+    
+    function sendMail() {
+    	sendMail();
+    }
+    
+ 	// 메일 전송
+	function sendMail() {
+		fetch('/sendMail.ajax', {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json'
+			}
+		})
+		.then(response => response.json())
+		.then(data => {
+			console.log(data.msg);
+		})
+		.catch(error => {console.log('Error: ',error);});
+	}
+    
     // 필터링하여 리스트 불러오기
 	 document.getElementById('optionBtn1').addEventListener('click', function() {
 		 // 필터링
 		 //filterBidList();
 		 
 		 // 메일 전송
-		 sendMail();
-		 
+		 //sendMail();
 	 });
 	 
 	function filterBidList() {
@@ -376,20 +394,7 @@
 	
 	
 	
-	// 메일 전송
-	function sendMail() {
-		fetch('/sendMail.ajax', {
-			method: 'GET',
-			headers: {
-				'Content-type': 'application/json'
-			}
-		})
-		.then(response => response.json())
-		.then(data => {
-			console.log(data.msg);
-		})
-		.catch(error => {console.log('Error: ',error);});
-	}
+	
 </script>
 
 </html>
