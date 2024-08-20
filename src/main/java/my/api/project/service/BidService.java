@@ -75,7 +75,7 @@ public class BidService {
         			+"&pageNo="+pageNo
         			+"&numOfRows="+numOfRows
         			+"&type=json"
-        			+"&bidNtceBgnDt=202407260000"
+        			+"&bidNtceBgnDt=202408060000"
         			+"&bidNtceEndDt="+formattedNow;
         	
         	
@@ -126,12 +126,15 @@ public class BidService {
 								*/
         						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도")) {
         							if (
-        								((bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
-        										&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약"))
+        								(
+        								 (bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
+        										&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약")
+        								)
         								&& 
-        								(bidInfo.getBidprcPsblIndstrytyNm().contains("감리")
+        								(
+        								 ((bidInfo.getBidprcPsblIndstrytyNm().contains("소방") || bidInfo.getBidprcPsblIndstrytyNm().contains("전기") || bidInfo.getBidprcPsblIndstrytyNm().contains("통신") || bidInfo.getBidprcPsblIndstrytyNm().contains("종합")) && bidInfo.getBidprcPsblIndstrytyNm().contains("감리"))
         										|| (((bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신")) && bidInfo.getBidNtceNm().contains("감리"))
-        												|| bidInfo.getBidNtceNm().contains("건설사업관리"))
+        								 )
         								)
         							) {
         								
