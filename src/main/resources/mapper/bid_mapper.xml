@@ -87,10 +87,10 @@
 		ORDER BY 
 		    <choose>
 		        <when test="array == 'basic'">
-		            bidNtceDate DESC
+		            bidNtceDate DESC , bidNtceBgn DESC
 		        </when>
 		        <when test="array == 'end'">
-		            bidClseDate ASC
+		            bidClseDate ASC, bidClseDate DESC
 		        </when>
 		        <when test="array == 'high'">
 		            asignBdgtAmt DESC
@@ -99,6 +99,36 @@
 		            asignBdgtAmt ASC
 		        </otherwise>
 		    </choose>
+	</select>
+	<!-- 필터링한 공고 개수 -->
+	<select id="filterBidListCnt" resultType="Integer">
+		SELECT COUNT(*)
+		FROM bid	
+		<where> 1=1
+			<if test="supervisorType == 'all'">
+			</if>
+			<if test="supervisorType == 'fire'">
+				AND bidNtceNm LIKE CONCAT('%', '소방', '%')
+			</if>
+			<if test="supervisorType == 'electric'">
+				AND bidNtceNm LIKE CONCAT('%', '전기', '%')
+			</if>
+			<if test="supervisorType == 'communi'">
+				AND bidNtceNm LIKE CONCAT('%', '통신', '%')
+			</if>
+			<if test="strDate != ''">
+				AND (STR_TO_DATE(bidClseDate, '%Y-%m-%d') BETWEEN #{strDate} AND #{endDate})
+			</if>
+			<if test="dateLimit == 'true'">
+				AND STR_TO_DATE(bidClseDate, '%Y-%m-%d') >= CURDATE() + INTERVAL 1 DAY
+			</if>
+			<if test="regionLimit == 'true'">
+				AND prtcptPsblRgnNm = ''
+			</if>
+			<if test="togetherLimit == 'true'">
+				AND cmmnReciptMethdNm = '공동수급불허'
+			</if>
+		</where>
 	</select>
 	
 	

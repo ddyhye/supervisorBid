@@ -75,8 +75,11 @@ public class BidService {
         			+"&pageNo="+pageNo
         			+"&numOfRows="+numOfRows
         			+"&type=json"
-        			+"&bidNtceBgnDt=202408060000"
+        			+"&bidNtceBgnDt=202408211136"
         			+"&bidNtceEndDt="+formattedNow;
+        	
+        	
+        	logger.info("현재 시간 >> "+formattedNow);
         	
         	
         	String fullUrl = url + queryString;
@@ -176,8 +179,7 @@ public class BidService {
 
 		return map;
 	}
-
-
+	// DB에 값 넣기
 	private void insertBid(BidInfoDTO bidInfo) {
 		bidDao.insertBid(bidInfo);
 	}
@@ -203,9 +205,9 @@ public class BidService {
 	// 필터링한 입찰공고 리스트 불러오기
 	public Map<String, Object> filterBidList(Map<String, Object> map, FilterDTO data) {
 		List<BidInfoDTO> bidList = bidDao.filterBidList(data);
-		//int cnt = bidDao.filterBidListCnt(data);
+		int cnt = bidDao.filterBidListCnt(data);
 		
-		//map.put("cnt", cnt);
+		map.put("cnt", cnt);
         map.put("bidList", bidList);
 		
 		return map;

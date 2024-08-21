@@ -45,7 +45,8 @@
 			</div>
 			<div class="button-right">
 				<!-- <button style="margin: 5px" onclick="location.href='write.go'"></button> -->
-				<button onclick="sendMail()" style="margin: 5px">Send</button>
+				<button onclick="getData()" style="margin: 5px">Get</button>
+				<button onclick="sendMail()" style="margin: 5px">Send Mail</button>
 			</div>
 		</div>
 		
@@ -100,7 +101,7 @@
 	   						<p>&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;한&nbsp;</p>
    						</div>
    						<input type="checkbox" name="limit" id="dateLimit" value="dateLimit"/>마감공고 제외&nbsp;&nbsp;&nbsp;
-   						<input type="checkbox" name="limit" id="regionLimit" value="regionLimit"/>투잘 제한 제외&nbsp;&nbsp;&nbsp;
+   						<!-- <input type="checkbox" name="limit" id="regionLimit" value="regionLimit"/>투잘 제한 제외&nbsp;&nbsp;&nbsp; -->
    						<input type="checkbox" name="limit" id="togetherLimit" value="togetherLimit"/>공동협정 제외
    					</div>  
    					<div class="memberM-top-option-detail-memberState">
@@ -122,6 +123,7 @@
    		</div>
 		
 	
+		<!-- <input type="hidden" class="url" value=""/> -->
 		<!-- <h3>입찰공고 검색 결과 <p id="listCnt"></p>건</h3>
 		
 		<hr/> -->
@@ -244,18 +246,22 @@
 	});
 	
 	
-	// 입찰공고 데이터베이스에 저장하기
-	fetch('/getApiData.ajax', {
-        method: 'GET',
-        headers: {
-            'Content-type': 'application/json'
-        }
-    })
-    .then(response => response.json())
-    .then(data => {		
-        drawBidList(data);
-    })
-    .catch(error => {console.log('Error: ', error);});
+	
+	function getData() {
+		// 입찰공고 데이터베이스에 저장하기
+		fetch('/getApiData.ajax', {
+	        method: 'GET',
+	        headers: {
+	            'Content-type': 'application/json'
+	        }
+	    })
+	    .then(response => response.json())
+	    .then(data => {		
+	        drawBidList(data);
+	    })
+	    .catch(error => {console.log('Error: ', error);});
+		
+	}
 	
 
 	// 리스트 불러오기 (필터링 X)
@@ -307,7 +313,9 @@
 		var strDate = document.getElementById('strDatePicker').value;
 		var endDate = document.getElementById('endDatePicker').value;
 		var dateLimit = document.getElementById('dateLimit').checked;
-		var regionLimit = document.getElementById('regionLimit').checked;
+		//regionLimit
+/* 		var regionLimit = document.getElementById('regionLimit').checked; */
+		var regionLimit = '';
 		var togetherLimit = document.getElementById('togetherLimit').checked;
 		var array = document.querySelector('input[name="memberStateOption"]:checked').value;
 		
@@ -364,6 +372,7 @@
 			content += '<div class="list-left-1">'+item.bsnsDivNm+'</div>';
 			content += '<div class="list-left-2">'+item.bidNtceSttusNm+'</div></div>';
 			content += '<div class="list-right">';
+			content += '<input type="hidden" class="url" value="'+item.bidNtceUrl+'"/>';
 			content += '<div class="list-right-1">';
 			content += '<p>['+item.bidNtceNo+']</p>';
 			content += '<p class="p-bold">'+item.bidNtceNm+'</p></div>';
@@ -390,6 +399,35 @@
 		
 		container.innerHTML = content;
 	}
+	
+	
+	
+	// 공고 클릭 시, 해당 링크로 이동
+	document.getElementById('container').addEventListener('click', function(e) {
+		var target = e.target.closest('.list');
+		
+		if(target) {
+			var url = target.querySelector('.url').value;
+			
+			window.location.href=url;
+		}
+	});
+	// 마우스 오버/ 아웃 배경색
+	document.getElementById('container').addEventListener('mouseover', function(e) {
+		var target = e.target.closest('.list');
+		
+		if(target) {
+			target.style.backgroundColor = 'lightgray';
+		}
+	});
+	// 공고 클릭 시, 해당 링크로 이동
+	document.getElementById('container').addEventListener('mouseout', function(e) {
+		var target = e.target.closest('.list');
+		
+		if(target) {
+			target.style.backgroundColor = 'white';
+		}
+	});
 	
 	
 	
