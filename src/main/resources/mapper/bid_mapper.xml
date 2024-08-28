@@ -62,6 +62,9 @@
 		<where> 1=1
 			<if test="supervisorType == 'all'">
 			</if>
+			<if test="keyword != null and keyword != ''">
+	            AND bidNtceNm LIKE CONCAT('%', #{keyword}, '%')
+	        </if>
 			<if test="supervisorType == 'fire'">
 				AND bidNtceNm LIKE CONCAT('%', '소방', '%')
 			</if>

@@ -127,6 +127,7 @@ public class BidService {
         							bidList.add(bidInfo);
 								}
 								*/
+        						/*
         						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도")) {
         							if (
         								(
@@ -154,7 +155,17 @@ public class BidService {
     									bidList.add(bidInfo);
         								
 									}
-        						}
+        						}*/
+        						/*
+        						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도")) {
+        							if (
+        								
+        								 (bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
+        										&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약")
+        								
+        							) {
+									}
+        						}*/
         					}
         				}
         				
