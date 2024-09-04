@@ -75,7 +75,7 @@
 				AND bidNtceNm LIKE CONCAT('%', '통신', '%')
 			</if>
 			<if test="strDate != ''">
-				AND (STR_TO_DATE(bidClseDate, '%Y-%m-%d') BETWEEN #{strDate} AND #{endDate})
+				AND (STR_TO_DATE(bidNtceDate, '%Y-%m-%d') BETWEEN #{strDate} AND #{endDate})
 			</if>
 			<if test="dateLimit == 'true'">
 				AND STR_TO_DATE(bidClseDate, '%Y-%m-%d') >= CURDATE() + INTERVAL 1 DAY

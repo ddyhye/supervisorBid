@@ -306,6 +306,11 @@
 		 // 메일 전송
 		 //sendMail();
 	 });
+    
+    // 필터링 초기화
+    document.getElementById('optionBtn2').addEventListener('click', function(){
+    	location.reload();
+    });
 	 
 	function filterBidList() {
 		var supervisorType = document.querySelector('input[name="supervisorType"]:checked').value;
@@ -334,6 +339,13 @@
 			togetherLimit: togetherLimit,
 			array: array
 		}
+		
+		console.log('감리 구분>> '+data.supervisorType);
+		console.log('키워드>> '+data.keyword);
+		console.log('기간>> '+data.strDate+' ~ '+data.endDate);
+		console.log('마감공고 제외>> '+data.dateLimit);
+		console.log('공동협정 제외>> '+data.togetherLimit);
+		console.log('정렬>> '+data.array);
 		 
 		// 서버로 필터링 값 전송
 		fetch('/filterBidList.ajax', {
