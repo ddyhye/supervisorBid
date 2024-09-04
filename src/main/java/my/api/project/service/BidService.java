@@ -156,16 +156,28 @@ public class BidService {
         								
 									}
         						}*/
-        						/*
+        						
         						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도")) {
-        							if (
-        								
-        								 (bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간"))
-        										&& !bidInfo.getCntrctCnclsMthdNm().equals("수의계약")
-        								
-        							) {
+        							if (bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간")) {
+        								if (!bidInfo.getCntrctCnclsMthdNm().equals("수의계약")) {
+											if (((bidInfo.getBidprcPsblIndstrytyNm().contains("소방") || bidInfo.getBidprcPsblIndstrytyNm().contains("전기") || bidInfo.getBidprcPsblIndstrytyNm().contains("통신") || bidInfo.getBidprcPsblIndstrytyNm().contains("종합")) && bidInfo.getBidprcPsblIndstrytyNm().contains("감리"))
+												|| ((bidInfo.getBidNtceNm().contains("소방") || bidInfo.getBidNtceNm().contains("전기") || bidInfo.getBidNtceNm().contains("통신")) && bidInfo.getBidNtceNm().contains("감리"))) {
+												
+												String tooLong = bidInfo.getBidprcPsblIndstrytyNm();
+		        								if (tooLong.length() > 255) {  // 만약 길이가 255자를 초과한다면
+		        									tooLong = tooLong.substring(0, 255);  // 255자까지만 잘라냄
+		        									
+		        									bidInfo.setBidprcPsblIndstrytyNm(tooLong);
+		        								}
+		        								
+		    									insertBid(bidInfo);
+		    									
+		    									cnt++;
+		    									bidList.add(bidInfo);
+											}
+										}
 									}
-        						}*/
+        						}
         					}
         				}
         				
