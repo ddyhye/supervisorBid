@@ -5,6 +5,22 @@
 <mapper namespace="my.api.project.dao.BidDAO">
 
 	
+	<!-- 마지막으로 가져온 날짜 업데이트 -->
+	<insert id="updateLastGetDate" parameterType="String">
+		INSERT INTO last_get_date(last_date)
+		VALUES(#{param1})
+	</insert>
+	
+	<!-- 마지막으로 가져온 날짜 가져오기 -->
+	<select id="getLastDate" resultType="String">
+		SELECT last_date
+		FROM last_get_date
+		ORDER BY idx DESC
+		LIMIT 1
+	</select>
+	
+	
+	
 	<!-- 소방, 전기, 통신 감리 입찰공고 저장 -->
 	<insert id="insertBid" parameterType="bidInfo">
 	    INSERT INTO bid (
@@ -120,7 +136,7 @@
 				AND bidNtceNm LIKE CONCAT('%', '통신', '%')
 			</if>
 			<if test="strDate != ''">
-				AND (STR_TO_DATE(bidClseDate, '%Y-%m-%d') BETWEEN #{strDate} AND #{endDate})
+				AND (STR_TO_DATE(bidNtceDate, '%Y-%m-%d') BETWEEN #{strDate} AND #{endDate})
 			</if>
 			<if test="dateLimit == 'true'">
 				AND STR_TO_DATE(bidClseDate, '%Y-%m-%d') >= CURDATE() + INTERVAL 1 DAY

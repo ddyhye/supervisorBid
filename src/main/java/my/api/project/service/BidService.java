@@ -55,6 +55,13 @@ public class BidService {
         LocalDateTime monthAgo = LocalDateTime.now().minus(30, ChronoUnit.DAYS);
         DateTimeFormatter dateTimeFormatter2 = DateTimeFormatter.ofPattern("yyyyMMdd'0000'");
         String formattedMonthAgo = monthAgo.format(dateTimeFormatter2);
+        // 이전에 가져온 날짜 가져오기
+        String getLastDate = bidDao.getLastDate();
+        
+        // 마지막으로 가져온 날짜 업데이트
+    	bidDao.updateLastGetDate(formattedNow);
+        
+        logger.info("가져온 시간 ~ 현재 시간 >> "+getLastDate+" ~ "+formattedNow);
         
         
         // 공고 수
@@ -65,7 +72,6 @@ public class BidService {
         // 다음 페이지가 있는지?
         boolean hasNextPage = true;
         
-        
         // 입찰 정보를 담을 DTO
         List<BidInfoDTO> bidList = new ArrayList<BidInfoDTO>();
         
@@ -75,11 +81,8 @@ public class BidService {
         			+"&pageNo="+pageNo
         			+"&numOfRows="+numOfRows
         			+"&type=json"
-        			+"&bidNtceBgnDt=202408211136"
+        			+"&bidNtceBgnDt="+getLastDate
         			+"&bidNtceEndDt="+formattedNow;
-        	
-        	
-        	logger.info("현재 시간 >> "+formattedNow);
         	
         	
         	String fullUrl = url + queryString;

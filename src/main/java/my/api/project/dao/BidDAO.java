@@ -28,4 +28,8 @@ public interface BidDAO {
 
 	void updateBid(int i);
 
+	void updateLastGetDate(String formattedNow);
+
+	String getLastDate();
+
 }
