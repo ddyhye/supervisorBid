@@ -160,7 +160,7 @@ public class BidService {
 									}
         						}*/
         						
-        						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().equals("경기도")) {
+        						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().contains("경기도")) {
         							if (bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간")) {
         								if (!bidInfo.getCntrctCnclsMthdNm().equals("수의계약")) {
 											if (((bidInfo.getBidprcPsblIndstrytyNm().contains("소방") || bidInfo.getBidprcPsblIndstrytyNm().contains("전기") || bidInfo.getBidprcPsblIndstrytyNm().contains("통신") || bidInfo.getBidprcPsblIndstrytyNm().contains("종합")) && bidInfo.getBidprcPsblIndstrytyNm().contains("감리"))

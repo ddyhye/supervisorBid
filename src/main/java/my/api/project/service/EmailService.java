@@ -82,18 +82,18 @@ public class EmailService {
 		
 		for (BidInfoDTO dto : list) {
 			// 입찰공고명
-			msg += "<h4>[ "+dto.getBidNtceNm()+" ]</h4>";
+			msg += "<h4>"+dto.getBidNtceNm()+"</h4>";
 			// 금액
 			long price = (long) dto.getAsignBdgtAmt();
 			String formatNum = String.format("%,d", price);
-			msg += "<p style='font-weight: bold;'>금액 >> <span>"+formatNum+" 원</span></p>";
+			msg += "<p style='font-weight: bold;'>[금 액] <span>"+formatNum+" 원</span></p>";
 			// 공고일시 / 입찰일시 / 입찰 마감 일시
-			msg += "<p style='font-weight: bold;'>공고일자 >> <span>"+dto.getBidNtceDate()+"</span></p>";
-			msg += "<p style='font-weight: bold;'>입찰기간 >> <span>"+dto.getBidBeginDate()+" ~ "+dto.getBidClseDate()+"</span></p>";
+			msg += "<p style='font-weight: bold;'>[공고일자] <span>"+dto.getBidNtceDate()+"</span></p>";
+			msg += "<p style='font-weight: bold;'>[입찰기간] <span>"+dto.getBidBeginDate()+" ~ "+dto.getBidClseDate()+"</span></p>";
 			// 공동수급여부
-			msg += "<p style='font-weight: bold;'>공동수급여부 >> <span>"+dto.getCmmnReciptMethdNm()+"</span></p>";
+			msg += "<p style='font-weight: bold;'>[공동수급여부] <span>"+dto.getCmmnReciptMethdNm()+"</span></p>";
 			// 링크
-			msg += "<p style='font-weight: bold;'>링크 >> <span><a href="+dto.getBidNtceUrl()+">"+dto.getBidNtceNm()+"</a></span></p>";
+			msg += "<p style='font-weight: bold;'>[링크] <span><a href="+dto.getBidNtceUrl()+">"+dto.getBidNtceNm()+"</a></span></p>";
 			msg += "<br/>";
 			msg += "<hr/>";
 			msg += "<br/>";
