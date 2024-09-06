@@ -75,7 +75,7 @@ public class EmailService {
 			return "X";
 		}
 		
-		msg += "<h3>새로운 입찰 공고가 "+cnt+"건 있습니다.</h3>";
+		msg += "<h3>총 "+cnt+"건</h3>";
 		msg += "<br/>";
 		msg += "<hr/>";
 		msg += "<br/>";
