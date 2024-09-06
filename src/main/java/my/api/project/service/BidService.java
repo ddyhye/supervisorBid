@@ -59,6 +59,7 @@ public class BidService {
         String getLastDate = bidDao.getLastDate();
         
         // 마지막으로 가져온 날짜 업데이트
+        // 테스트. 임시막음
     	bidDao.updateLastGetDate(formattedNow);
         
         logger.info("가져온 시간 ~ 현재 시간 >> "+getLastDate+" ~ "+formattedNow);
@@ -109,6 +110,13 @@ public class BidService {
         				if (itemsNode.isArray()) {
         					// 각 요소를 순회
         					for (JsonNode itemNode : itemsNode) {
+        						
+        						// 나라장터에서 제공하는 것이 아니라, 특정회사에서 올리는,,,, 문서 구조가 엉망인 것 찾아내기,,,
+        					    // 먼저 itemNode 내부에서 "E012407751" 값이 포함되어 있는지 확인
+        					    //if (itemNode.toString().contains("500kV HVDC 동해안변환소 소방설비공사")) {
+
+        						//logger.info(itemNode.toString());
+        						
         						BidInfoDTO bidInfo = objectMapper.treeToValue(itemNode, BidInfoDTO.class);
         						
         						// 건설사업관리가 아니라,, 투찰제한업종에서 필터링하자.
@@ -160,6 +168,8 @@ public class BidService {
 									}
         						}*/
         						
+        						
+        						/* 이게 정답. 근데 테스트해야해서 임시로 막아놓음*/
         						if (bidInfo.getPrtcptPsblRgnNm().equals("") || bidInfo.getPrtcptPsblRgnNm().contains("경기도")) {
         							if (bidInfo.getBsnsDivNm().contains("용역")||bidInfo.getBsnsDivNm().contains("민간")) {
         								if (!bidInfo.getCntrctCnclsMthdNm().equals("수의계약")) {
@@ -181,7 +191,26 @@ public class BidService {
 										}
 									}
         						}
+        						
+        						/*
+        						if (bidInfo.getBidNtceNo().contains("E012407751")) {
+        							String tooLong = bidInfo.getBidprcPsblIndstrytyNm();
+    								if (tooLong.length() > 255) {  // 만약 길이가 255자를 초과한다면
+    									tooLong = tooLong.substring(0, 255);  // 255자까지만 잘라냄
+    									
+    									bidInfo.setBidprcPsblIndstrytyNm(tooLong);
+    								}
+    								
+									insertBid(bidInfo);
+									
+									cnt++;
+									bidList.add(bidInfo);
+								}*/
         					}
+        					 
+        					    
+        					// 이거 삭제해야함. if문 테스트.    
+        					//}
         				}
         				
         				if (itemsNode.size() == numOfRows) {
